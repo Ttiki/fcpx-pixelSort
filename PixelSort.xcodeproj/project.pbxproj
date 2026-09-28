@@ -1,0 +1,538 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16E47552306AC87B009FD034 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E47551306AC87B009FD034 /* Cocoa.framework */; };
+		16E4755A306AC87B009FD034 /* PixelSort XPC Service.pluginkit in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		16E4755E306AC87B009FD034 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E4755D306AC87B009FD034 /* Foundation.framework */; };
+		16E47560306AC87B009FD034 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E4755F306AC87B009FD034 /* AppKit.framework */; };
+		16E47562306AC87B009FD034 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E47561306AC87B009FD034 /* Accelerate.framework */; };
+		16E47564306AC87B009FD034 /* PluginManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E47563306AC87B009FD034 /* PluginManager.framework */; };
+		16E47566306AC87B009FD034 /* FxPlug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E47565306AC87B009FD034 /* FxPlug.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		16E4755B306AC87B009FD034 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16E47546306AC87B009FD034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16E47558306AC87B009FD034;
+			remoteInfo = "XPC Service";
+		};
+		16E47567306AC87B009FD034 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16E47546306AC87B009FD034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16E47558306AC87B009FD034;
+			remoteInfo = "XPC Service";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		16E4758F306AC87B009FD034 /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				16E4755A306AC87B009FD034 /* PixelSort XPC Service.pluginkit in Embed PlugIns */,
+			);
+			name = "Embed PlugIns";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		16E4754E306AC87B009FD034 /* PixelSort.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSort.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E47551306AC87B009FD034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PixelSort XPC Service.pluginkit"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E4755D306AC87B009FD034 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		16E4755F306AC87B009FD034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		16E47561306AC87B009FD034 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		16E47563306AC87B009FD034 /* PluginManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PluginManager.framework; path = Library/Frameworks/../../../../../../Library/Developer/Frameworks/PluginManager.framework; sourceTree = DEVELOPER_DIR; };
+		16E47565306AC87B009FD034 /* FxPlug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FxPlug.framework; path = Library/Frameworks/../../../../../../Library/Developer/Frameworks/FxPlug.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		16E4758B306AC87B009FD034 /* Exceptions for "PixelSort" folder in "Wrapper Application" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Plugin/InfoPlist.strings",
+				"/Localized: Plugin/Localizable.strings",
+				Plugin/Info.plist,
+				Plugin/main.swift,
+				Plugin/MetalDeviceCache.swift,
+				Plugin/PixelSortPlugIn.swift,
+				Plugin/TileableRemoteBrightness.metal,
+				"Wrapper Application/Info.plist",
+			);
+			target = 16E4754D306AC87B009FD034 /* Wrapper Application */;
+		};
+		16E47593306AC87B009FD034 /* Exceptions for "PixelSort" folder in "XPC Service" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Wrapper Application/Credits.rtf",
+				"/Localized: Wrapper Application/InfoPlist.strings",
+				"/Localized: Wrapper Application/MainMenu.xib",
+				Plugin/Info.plist,
+				"Wrapper Application/AppDelegate.swift",
+				"Wrapper Application/Info.plist",
+			);
+			target = 16E47558306AC87B009FD034 /* XPC Service */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		16E47569306AC87B009FD034 /* PixelSort */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				16E4758B306AC87B009FD034 /* Exceptions for "PixelSort" folder in "Wrapper Application" target */,
+				16E47593306AC87B009FD034 /* Exceptions for "PixelSort" folder in "XPC Service" target */,
+			);
+			path = PixelSort;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		16E4754B306AC87B009FD034 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				16E47552306AC87B009FD034 /* Cocoa.framework in Frameworks */,
+			);
+		};
+		16E47554306AC87B009FD034 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				16E47562306AC87B009FD034 /* Accelerate.framework in Frameworks */,
+				16E47564306AC87B009FD034 /* PluginManager.framework in Frameworks */,
+				16E4755E306AC87B009FD034 /* Foundation.framework in Frameworks */,
+				16E47560306AC87B009FD034 /* AppKit.framework in Frameworks */,
+				16E47566306AC87B009FD034 /* FxPlug.framework in Frameworks */,
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16E47545306AC87B009FD034 = {
+			isa = PBXGroup;
+			children = (
+				16E47569306AC87B009FD034 /* PixelSort */,
+				16E47550306AC87B009FD034 /* Frameworks */,
+				16E4754F306AC87B009FD034 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		16E4754F306AC87B009FD034 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16E4754E306AC87B009FD034 /* PixelSort.app */,
+				16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16E47550306AC87B009FD034 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16E47551306AC87B009FD034 /* Cocoa.framework */,
+				16E4755D306AC87B009FD034 /* Foundation.framework */,
+				16E4755F306AC87B009FD034 /* AppKit.framework */,
+				16E47561306AC87B009FD034 /* Accelerate.framework */,
+				16E47563306AC87B009FD034 /* PluginManager.framework */,
+				16E47565306AC87B009FD034 /* FxPlug.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		16E4754D306AC87B009FD034 /* Wrapper Application */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16E47590306AC87B009FD034 /* Build configuration list for PBXNativeTarget "Wrapper Application" */;
+			buildPhases = (
+				16E4754A306AC87B009FD034 /* Sources */,
+				16E4754B306AC87B009FD034 /* Frameworks */,
+				16E4754C306AC87B009FD034 /* Resources */,
+				16E4758F306AC87B009FD034 /* Embed PlugIns */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				16E4755C306AC87B009FD034 /* PBXTargetDependency */,
+				16E47568306AC87B009FD034 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				16E47569306AC87B009FD034 /* PixelSort */,
+			);
+			name = "Wrapper Application";
+			productName = "Wrapper Application";
+			productReference = 16E4754E306AC87B009FD034 /* PixelSort.app */;
+			productType = "com.apple.product-type.application";
+		};
+		16E47558306AC87B009FD034 /* XPC Service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16E4758C306AC87B009FD034 /* Build configuration list for PBXNativeTarget "XPC Service" */;
+			buildPhases = (
+				16E47553306AC87B009FD034 /* Sources */,
+				16E47554306AC87B009FD034 /* Frameworks */,
+				16E47555306AC87B009FD034 /* Resources */,
+				16E47556306AC87B009FD034 /* Copy and Code Sign FxPlug.framework */,
+				16E47557306AC87B009FD034 /* Copy and Code Sign PluginManager.framework */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				16E47569306AC87B009FD034 /* PixelSort */,
+			);
+			name = "XPC Service";
+			productName = "XPC Service";
+			productReference = 16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		16E47546306AC87B009FD034 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					16E4754D306AC87B009FD034 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					16E47558306AC87B009FD034 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 16E47549306AC87B009FD034 /* Build configuration list for PBXProject "PixelSort" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 16E47545306AC87B009FD034;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 16E4754F306AC87B009FD034 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				16E4754D306AC87B009FD034 /* Wrapper Application */,
+				16E47558306AC87B009FD034 /* XPC Service */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		16E4754C306AC87B009FD034 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		16E47555306AC87B009FD034 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16E47556306AC87B009FD034 /* Copy and Code Sign FxPlug.framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			name = "Copy and Code Sign FxPlug.framework";
+			shellPath = /bin/sh;
+			shellScript = (
+				"mkdir -p \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"",
+				"rsync --archive --links --whole-file --no-owner --no-group --checksum --exclude='Headers' \"/Library/Developer/Frameworks/FxPlug.framework/\" \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FxPlug.framework/\"",
+				"if [ \"$?\" -ne 0 ]; then echo \"error: rsync failed; couldn't embed FxPlug.framework\"; exit 1; fi",
+				"codesign --force --timestamp --options runtime --sign \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/FxPlug.framework\"",
+			);
+			showEnvVarsInLog = 0;
+		};
+		16E47557306AC87B009FD034 /* Copy and Code Sign PluginManager.framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			name = "Copy and Code Sign PluginManager.framework";
+			shellPath = /bin/sh;
+			shellScript = (
+				"mkdir -p \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"",
+				"rsync --archive --links --whole-file --no-owner --no-group --checksum --exclude='Headers' \"/Library/Developer/Frameworks/PluginManager.framework/\" \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PluginManager.framework/\"",
+				"if [ \"$?\" -ne 0 ]; then echo \"error: rsync failed; couldn't embed PluginManager.framework\"; exit 1; fi",
+				"codesign --force --timestamp --options runtime --sign \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PluginManager.framework\"",
+				"",
+			);
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		16E4754A306AC87B009FD034 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		16E47553306AC87B009FD034 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		16E4755C306AC87B009FD034 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16E47558306AC87B009FD034 /* XPC Service */;
+			targetProxy = 16E4755B306AC87B009FD034 /* PBXContainerItemProxy */;
+		};
+		16E47568306AC87B009FD034 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16E47558306AC87B009FD034 /* XPC Service */;
+			targetProxy = 16E47567306AC87B009FD034 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		16E4758D306AC87B009FD034 /* Debug configuration for PBXNativeTarget "XPC Service" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = PixelSort/Plugin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "PixelSort $(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Plugin/XPC Service-Bridging-Header.h";
+				WRAPPER_EXTENSION = pluginkit;
+			};
+			name = Debug;
+		};
+		16E4758E306AC87B009FD034 /* Release configuration for PBXNativeTarget "XPC Service" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = PixelSort/Plugin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "PixelSort $(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Plugin/XPC Service-Bridging-Header.h";
+				WRAPPER_EXTENSION = pluginkit;
+			};
+			name = Release;
+		};
+		16E47591306AC87B009FD034 /* Debug configuration for PBXNativeTarget "Wrapper Application" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "PixelSort/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = PixelSort;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		16E47592306AC87B009FD034 /* Release configuration for PBXNativeTarget "Wrapper Application" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "PixelSort/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = PixelSort;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		16E47594306AC87B009FD034 /* Debug configuration for PBXProject "PixelSort" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5;
+			};
+			name = Debug;
+		};
+		16E47595306AC87B009FD034 /* Release configuration for PBXProject "PixelSort" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		16E47549306AC87B009FD034 /* Build configuration list for PBXProject "PixelSort" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16E47594306AC87B009FD034 /* Debug configuration for PBXProject "PixelSort" */,
+				16E47595306AC87B009FD034 /* Release configuration for PBXProject "PixelSort" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		16E4758C306AC87B009FD034 /* Build configuration list for PBXNativeTarget "XPC Service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16E4758D306AC87B009FD034 /* Debug configuration for PBXNativeTarget "XPC Service" */,
+				16E4758E306AC87B009FD034 /* Release configuration for PBXNativeTarget "XPC Service" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		16E47590306AC87B009FD034 /* Build configuration list for PBXNativeTarget "Wrapper Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16E47591306AC87B009FD034 /* Debug configuration for PBXNativeTarget "Wrapper Application" */,
+				16E47592306AC87B009FD034 /* Release configuration for PBXNativeTarget "Wrapper Application" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 16E47546306AC87B009FD034 /* Project object */;
+	validationLevel = 1;
+}
