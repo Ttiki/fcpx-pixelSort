@@ -46,7 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		16E4754E306AC87B009FD034 /* PixelSort.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSort.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E4754E306AC87B009FD034 /* 1V2T_Glitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 1V2T_Glitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16E47551306AC87B009FD034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PixelSort XPC Service.pluginkit"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16E4755D306AC87B009FD034 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,23 +57,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		16E4758B306AC87B009FD034 /* Exceptions for "PixelSort" folder in "Wrapper Application" target */ = {
+		16E4758B306AC87B009FD034 /* Exceptions for "1V2T_Glitch" folder in "Wrapper Application" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Plugin/InfoPlist.strings",
 				"/Localized: Plugin/Localizable.strings",
+				Plugin/GlitchEffects.metal,
+				Plugin/GlitchEffects.swift,
 				Plugin/Info.plist,
 				Plugin/main.swift,
 				Plugin/MetalDeviceCache.swift,
 				Plugin/PixelSortPlugIn.swift,
-				Plugin/GlitchEffects.swift,
-				Plugin/GlitchEffects.metal,
 				Plugin/TileableRemoteBrightness.metal,
 				"Wrapper Application/Info.plist",
 			);
 			target = 16E4754D306AC87B009FD034 /* Wrapper Application */;
 		};
-		16E47593306AC87B009FD034 /* Exceptions for "PixelSort" folder in "XPC Service" target */ = {
+		16E47593306AC87B009FD034 /* Exceptions for "1V2T_Glitch" folder in "XPC Service" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Wrapper Application/Credits.rtf",
@@ -88,13 +88,13 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		16E47569306AC87B009FD034 /* PixelSort */ = {
+		16E47569306AC87B009FD034 /* 1V2T_Glitch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				16E4758B306AC87B009FD034 /* Exceptions for "PixelSort" folder in "Wrapper Application" target */,
-				16E47593306AC87B009FD034 /* Exceptions for "PixelSort" folder in "XPC Service" target */,
+				16E4758B306AC87B009FD034 /* Exceptions for "1V2T_Glitch" folder in "Wrapper Application" target */,
+				16E47593306AC87B009FD034 /* Exceptions for "1V2T_Glitch" folder in "XPC Service" target */,
 			);
-			path = PixelSort;
+			path = 1V2T_Glitch;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -122,7 +122,7 @@
 		16E47545306AC87B009FD034 = {
 			isa = PBXGroup;
 			children = (
-				16E47569306AC87B009FD034 /* PixelSort */,
+				16E47569306AC87B009FD034 /* 1V2T_Glitch */,
 				16E47550306AC87B009FD034 /* Frameworks */,
 				16E4754F306AC87B009FD034 /* Products */,
 			);
@@ -131,7 +131,7 @@
 		16E4754F306AC87B009FD034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				16E4754E306AC87B009FD034 /* PixelSort.app */,
+				16E4754E306AC87B009FD034 /* 1V2T_Glitch.app */,
 				16E47559306AC87B009FD034 /* PixelSort XPC Service.pluginkit */,
 			);
 			name = Products;
@@ -169,11 +169,11 @@
 				16E47568306AC87B009FD034 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				16E47569306AC87B009FD034 /* PixelSort */,
+				16E47569306AC87B009FD034 /* 1V2T_Glitch */,
 			);
 			name = "Wrapper Application";
 			productName = "Wrapper Application";
-			productReference = 16E4754E306AC87B009FD034 /* PixelSort.app */;
+			productReference = 16E4754E306AC87B009FD034 /* 1V2T_Glitch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		16E47558306AC87B009FD034 /* XPC Service */ = {
@@ -189,7 +189,7 @@
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
-				16E47569306AC87B009FD034 /* PixelSort */,
+				16E47569306AC87B009FD034 /* 1V2T_Glitch */,
 			);
 			name = "XPC Service";
 			productName = "XPC Service";
@@ -214,7 +214,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 16E47549306AC87B009FD034 /* Build configuration list for PBXProject "PixelSort" */;
+			buildConfigurationList = 16E47549306AC87B009FD034 /* Build configuration list for PBXProject "1V2T_Glitch" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -348,8 +348,10 @@
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "1V2T Glitch";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = PixelSort;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "-1V2T-Glitch";
+				PRODUCT_NAME = 1V2T_Glitch;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -365,8 +367,10 @@
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "1V2T Glitch";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = PixelSort;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "-1V2T-Glitch";
+				PRODUCT_NAME = 1V2T_Glitch;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -374,7 +378,7 @@
 			};
 			name = Release;
 		};
-		16E47594306AC87B009FD034 /* Debug configuration for PBXProject "PixelSort" */ = {
+		16E47594306AC87B009FD034 /* Debug configuration for PBXProject "1V2T_Glitch" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
@@ -444,7 +448,7 @@
 			};
 			name = Debug;
 		};
-		16E47595306AC87B009FD034 /* Release configuration for PBXProject "PixelSort" */ = {
+		16E47595306AC87B009FD034 /* Release configuration for PBXProject "1V2T_Glitch" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
@@ -509,11 +513,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		16E47549306AC87B009FD034 /* Build configuration list for PBXProject "PixelSort" */ = {
+		16E47549306AC87B009FD034 /* Build configuration list for PBXProject "1V2T_Glitch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				16E47594306AC87B009FD034 /* Debug configuration for PBXProject "PixelSort" */,
-				16E47595306AC87B009FD034 /* Release configuration for PBXProject "PixelSort" */,
+				16E47594306AC87B009FD034 /* Debug configuration for PBXProject "1V2T_Glitch" */,
+				16E47595306AC87B009FD034 /* Release configuration for PBXProject "1V2T_Glitch" */,
 			);
 			defaultConfigurationName = Release;
 		};
