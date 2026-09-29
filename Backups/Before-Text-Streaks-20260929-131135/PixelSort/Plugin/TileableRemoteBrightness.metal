@@ -1,7 +1,3 @@
-// PixelSort GPU library (the filename is retained from Apple's starter template).
-// Compute kernels implement stable brightness sorting, a no-effect copy, and seeded text streaks.
-// A vertex/fragment pair copies the computed float image into the host's renderable pixel format.
-
 //
 //  TileableRemoteBrightness.metal
 //  PixelSort
@@ -16,7 +12,6 @@ using namespace metal;
 
 #include "TileableRemoteBrightnessShaderTypes.h"
 
-/// Carries clip-space positions and texture coordinates from the fullscreen vertex stage.
 typedef struct
 {
     // The [[position]] attribute of this member indicates that this value is the clip space
@@ -30,7 +25,6 @@ typedef struct
     
 } RasterizerData;
 
-/// Builds the fullscreen quad by converting pixel-space vertices to normalized device coordinates.
 vertex RasterizerData
 vertexShader(uint vertexID [[vertex_id]],
              constant Vertex2D *vertexArray [[buffer(BVI_Vertices)]],
@@ -65,13 +59,11 @@ vertexShader(uint vertexID [[vertex_id]],
 }
 
 // The intermediate texture is already in destination texture orientation.
-/// Copies one intermediate pixel to the host render target without filtering or resampling.
 fragment float4 fragmentShader(RasterizerData in [[stage_in]],
                                texture2d<float, access::read> image [[texture(0)]]) {
     return image.read(uint2(in.clipSpacePosition.xy));
 }
 
-/// Keeps color and stable ordering keys together for the original bounded-block sorting kernel.
 struct SortItem {
     float4 color;
     float key;
@@ -79,15 +71,12 @@ struct SortItem {
     uint originalIndex;
 };
 
-/// Orders segment first, brightness second, and original position last to preserve equal-key order.
 bool lessThan(SortItem a, SortItem b) {
     if (a.segment != b.segment) return a.segment < b.segment;
     if (a.key != b.key) return a.key < b.key;
     return a.originalIndex < b.originalIndex;
 }
 
-/// Implements the original 64/128/256-pixel block path, retained for regression checks.
-/// A prefix maximum marks eligible runs, then shared-memory bitonic stages reorder each block.
 kernel void pixelSort(texture2d<float, access::read> source [[texture(0)]],
                       texture2d<float, access::write> destination [[texture(1)]],
                       constant PixelSortUniforms &u [[buffer(0)]],
@@ -148,7 +137,6 @@ kernel void pixelSort(texture2d<float, access::read> source [[texture(0)]],
 
 // Full-line sorting stores keys and source indices, not image colors, in scratch memory.
 // Each line is sorted in 256-pixel groups, then stable parallel merges remove those boundaries.
-/// Stores only sorting keys and a source index; colors remain in the input texture to save memory.
 struct FullSortItem {
     float key;
     uint segment;
@@ -156,15 +144,12 @@ struct FullSortItem {
     uint unused;
 };
 
-/// Defines a unique stable ordering for parallel merges, including equal brightness and padding.
 bool fullLess(FullSortItem a, FullSortItem b) {
     if (a.segment != b.segment) return a.segment < b.segment;
     if (a.key != b.key) return a.key < b.key;
     return a.originalIndex < b.originalIndex;
 }
 
-/// Reads a line pixel after converting axis/cross-axis positions to the source tile orientation.
-/// Callers must have requested the complete sorting axis so these reads remain within the texture.
 float4 fullSource(texture2d<float, access::read> source,
                   constant PixelSortUniforms &u, int axis, int cross) {
     int2 point = u.configuration.x != 0 ? int2(cross, axis) : int2(axis, cross);
@@ -174,8 +159,6 @@ float4 fullSource(texture2d<float, access::read> source,
 }
 
 // info: actual axis length, padded axis length, merge run length, batch line count.
-/// Scans each line to assign threshold/length segments and source indices.
-/// Padding receives the largest segment key, keeping sentinels after all real pixels.
 kernel void fullSortInitialize(texture2d<float, access::read> source [[texture(0)]],
                                device FullSortItem *items [[buffer(0)]],
                                constant PixelSortUniforms &u [[buffer(1)]],
@@ -200,7 +183,6 @@ kernel void fullSortInitialize(texture2d<float, access::read> source [[texture(0
                 item.segment = 2 * lastBarrier;
                 item.key = u.configuration.y != 0 ? -luminance : luminance;
             } else {
-                // Odd segments reserve excluded pixels in place between adjacent eligible runs.
                 item.segment = 2 * axis + 1;
                 lastBarrier = axis + 1;
             }
@@ -209,8 +191,6 @@ kernel void fullSortInitialize(texture2d<float, access::read> source [[texture(0
     }
 }
 
-/// Sorts complete 256-entry runs in threadgroup memory before global merging.
-/// Barriers separate every read/write stage so neighboring lanes never race.
 kernel void fullSortBlocks(device FullSortItem *items [[buffer(0)]],
                            constant uint4 &info [[buffer(1)]],
                            uint lane [[thread_index_in_threadgroup]],
@@ -232,8 +212,6 @@ kernel void fullSortBlocks(device FullSortItem *items [[buffer(0)]],
     items[index] = local[lane];
 }
 
-/// Merges adjacent sorted runs by binary-searching each item in the opposing run.
-/// Unique stable keys give each thread a distinct output rank without atomic operations.
 kernel void fullSortMerge(const device FullSortItem *input [[buffer(0)]],
                           device FullSortItem *output [[buffer(1)]],
                           constant uint4 &info [[buffer(2)]],
@@ -256,7 +234,6 @@ kernel void fullSortMerge(const device FullSortItem *input [[buffer(0)]],
     output[lineBase + pairBase + (axis - runBase) + rank] = item;
 }
 
-/// Gathers original RGBA colors by sorted source index, applies Mix, and writes the requested tile.
 kernel void fullSortOutput(texture2d<float, access::read> source [[texture(0)]],
                            texture2d<float, access::write> destination [[texture(1)]],
                            const device FullSortItem *items [[buffer(0)]],
@@ -279,7 +256,6 @@ kernel void fullSortOutput(texture2d<float, access::read> source [[texture(0)]],
 }
 
 
-/// Copies original pixels while accounting for source/output tile positions and image origins.
 kernel void pixelSortCopy(texture2d<float, access::read> source [[texture(0)]],
                           texture2d<float, access::write> destination [[texture(1)]],
                           constant PixelSortUniforms &u [[buffer(0)]],
@@ -291,62 +267,4 @@ kernel void pixelSortCopy(texture2d<float, access::read> source [[texture(0)]],
     uint2 output = position;
     if (u.dispatchInfo.x != 0) output.y = uint(u.destinationRect.w) - 1 - output.y;
     destination.write(color, output);
-}
-
-/// Produces deterministic, decorrelated row/column lengths without mutable random state.
-/// Unsigned overflow is deliberate: identical seed and line position yield identical bits.
-uint streakHash(uint value) {
-    value ^= value >> 16; value *= 0x7feb352du;
-    value ^= value >> 15; value *= 0x846ca68bu;
-    return value ^ (value >> 16);
-}
-
-/// Stretches foreground into transparent gaps instead of sorting equal-brightness text pixels.
-/// Each thread scans a full line, remembers a foreground color, and writes only the requested tile.
-/// details.x is full axis length; details.y is the user seed. Brightness thresholds are unused.
-kernel void textStreaks(texture2d<float, access::read> source [[texture(0)]],
-                        texture2d<float, access::write> destination [[texture(1)]],
-                        constant PixelSortUniforms &u [[buffer(0)]],
-                        constant uint4 &details [[buffer(1)]],
-                        uint line [[thread_position_in_grid]]) {
-    bool vertical = u.configuration.x != 0;
-    uint lines = uint(vertical ? u.destinationRect.z : u.destinationRect.w);
-    if (line >= lines) return;
-    int cross = u.dispatchInfo.z + int(line);
-    uint maximum = u.configuration.z == 0 ? details.x : uint(u.configuration.z);
-    // Anchor randomness to image coordinates, never the tile-local row number, to prevent seams.
-    float random = float(streakHash(uint(cross) ^ streakHash(details.y)) & 0x00ffffffu) / 16777216.0f;
-    uint span = maximum > 0 ? 1u + uint(random * float(maximum)) : 0u;
-    // Image-space Y grows upwards. Invert the vertical walk so default streaks travel downwards.
-    bool backwards = (u.configuration.y != 0) != vertical;
-    float4 carried = float4(0);
-    uint distance = span + 1;
-    bool previousForeground = false;
-    for (uint step = 0; step < details.x; ++step) {
-        int axis = int(backwards ? details.x - 1 - step : step);
-        float4 original = fullSource(source, u, axis, cross);
-        float4 result = original;
-        bool foreground = original.a > 0.01f && all(isfinite(original));
-        if (foreground) {
-            // Keep the most opaque sample within a foreground run: antialiased edge pixels
-            // should not replace solid white with a faint, nearly transparent trail.
-            if (!previousForeground || original.a >= carried.a) carried = original;
-            distance = 0;
-        } else {
-            ++distance;
-            if (distance <= span && carried.a > 0) {
-                // Composite the carried premultiplied color behind any tiny edge coverage.
-                result = original + carried * (1.0f - original.a);
-            }
-        }
-        previousForeground = foreground;
-        int2 point = vertical ? int2(cross, axis) : int2(axis, cross);
-        int2 output = point - u.destinationRect.xy;
-        if (all(output >= int2(0)) && all(output < u.destinationRect.zw)) {
-            if (u.dispatchInfo.x != 0) output.y = u.destinationRect.w - 1 - output.y;
-            if (u.controls.z <= 0) result = original;
-            else if (u.controls.z < 1) result = mix(original, result, u.controls.z);
-            destination.write(result, uint2(output));
-        }
-    }
 }

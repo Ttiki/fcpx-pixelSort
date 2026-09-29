@@ -1,11 +1,5 @@
-// PixelSort's host-facing controller. It creates controls, snapshots keyframed values,
-// requests the pixels each tile needs, and schedules brightness sorting or text streaking.
-// Foundation supplies Codable/Data and host errors; FxPlug/Metal types arrive via the bridging header.
-
 import Foundation
 
-/// Carries one render-time snapshot without sharing mutable UI values across render threads.
-/// Codable serializes the snapshot to the opaque data FxPlug passes back during rendering.
 private struct SortState: Codable {
     var lower: Double = 0.15
     var upper: Double = 0.85
@@ -13,25 +7,16 @@ private struct SortState: Codable {
     var vertical = false
     var reverse = false
     var amount: Double = 0.25
-    var mode: Int32 = 0
-    var seed: UInt32 = 1
-    /// Converts the normalized length slider to render pixels on the selected axis.
-    /// A one-pixel result selects the copy path; the image dimension is the upper bound.
     func length(for axis: Int32) -> Int32 {
         let value = amount.isFinite ? max(0, min(1, amount)) : 0
         return max(1, Int32((Double(axis) * value).rounded()))
     }
 }
 
-/// Exposes the stable Objective-C class name registered in Info.plist.
-/// FxTileableEffect callbacks connect the host image pipeline to the shared GPU implementation.
 @objc(PixelSortPlugIn) class PixelSortPlugIn: NSObject, FxTileableEffect {
     let apiManager: PROAPIAccessing
-    /// Retains the host API manager so callbacks can create controls and retrieve keyed values.
     required init?(apiManager: PROAPIAccessing) { self.apiManager = apiManager }
 
-    /// Creates the filter inspector and assigns persistent IDs to its controls.
-    /// New mode/seed IDs leave existing direction, threshold, mix, and length animations intact.
     func addParameters() throws {
         guard let api = apiManager.api(for: FxParameterCreationAPI_v5.self) as? FxParameterCreationAPI_v5 else {
             throw pixelSortError("Parameter creation API is unavailable.")
@@ -39,8 +24,6 @@ private struct SortState: Codable {
         let flags = FxParameterFlags(kFxParameterFlag_DEFAULT)
         // IDs start at 10 so the starter's Brightness animation cannot become a different control.
         let results = [
-            api.addPopupMenu(withName: "Mode", parameterID: 17, defaultValue: 0, menuEntries: ["Brightness Sort", "Text Streaks"], parameterFlags: flags),
-            api.addFloatSlider(withName: "Streak Seed", parameterID: 18, defaultValue: 1, parameterMin: 0, parameterMax: 10000, sliderMin: 0, sliderMax: 10000, delta: 1, parameterFlags: flags),
             api.addPopupMenu(withName: "Direction", parameterID: 10, defaultValue: 0, menuEntries: ["Horizontal", "Vertical"], parameterFlags: flags),
             api.addFloatSlider(withName: "Lower Brightness", parameterID: 11, defaultValue: 0.15, parameterMin: 0, parameterMax: 16, sliderMin: 0, sliderMax: 1, delta: 0.01, parameterFlags: flags),
             api.addFloatSlider(withName: "Upper Brightness", parameterID: 12, defaultValue: 0.85, parameterMin: 0, parameterMax: 16, sliderMin: 0, sliderMax: 1, delta: 0.01, parameterFlags: flags),
@@ -51,8 +34,6 @@ private struct SortState: Codable {
         guard results.allSatisfy({ $0 }) else { throw pixelSortError("Unable to create PixelSort controls.") }
     }
 
-    /// Declares render behavior to the host. Neither sorting nor seeded streaks uses wall-clock time,
-    /// so unchanged parameters may safely reuse a cached frame.
     func properties(_ properties: AutoreleasingUnsafeMutablePointer<NSDictionary>?) throws {
         properties?.pointee = [
             kFxPropertyKey_MayRemapTime: false,
@@ -61,8 +42,6 @@ private struct SortState: Codable {
         ] as NSDictionary
     }
 
-    /// Reads all controls at the requested timeline time, then serializes an immutable snapshot.
-    /// The GPU render callback consumes this snapshot instead of querying the host UI APIs.
     func pluginState(_ pluginState: AutoreleasingUnsafeMutablePointer<NSData>?, at renderTime: CMTime, quality qualityLevel: UInt) throws {
         guard let api = apiManager.api(for: FxParameterRetrievalAPI_v6.self) as? FxParameterRetrievalAPI_v6 else {
             throw pixelSortError("Parameter retrieval API is unavailable.")
@@ -70,10 +49,7 @@ private struct SortState: Codable {
         var state = SortState()
         var direction: Int32 = 0
         var reverse = ObjCBool(false)
-        var seed = 1.0
         let results = [
-            api.getIntValue(&state.mode, fromParameter: 17, at: renderTime),
-            api.getFloatValue(&seed, fromParameter: 18, at: renderTime),
             api.getIntValue(&direction, fromParameter: 10, at: renderTime),
             api.getFloatValue(&state.lower, fromParameter: 11, at: renderTime),
             api.getFloatValue(&state.upper, fromParameter: 12, at: renderTime),
@@ -84,26 +60,19 @@ private struct SortState: Codable {
         guard results.allSatisfy({ $0 }) else { throw pixelSortError("Unable to read PixelSort controls.") }
         state.vertical = direction == 1
         state.reverse = reverse.boolValue
-        state.mode = state.mode == 1 ? 1 : 0
-        state.seed = UInt32(seed.isFinite ? min(10000, max(0, seed)).rounded() : 1)
         pluginState?.pointee = try JSONEncoder().encode(state) as NSData
     }
 
-    /// Decodes the exact snapshot associated with this render; missing data becomes a host error.
     private func state(from data: Data?) throws -> SortState {
         guard let data = data else { throw pixelSortError("Missing render state.") }
         return try JSONDecoder().decode(SortState.self, from: data)
     }
 
-    /// Keeps the output canvas equal to the input canvas. Effects can fill transparent space inside
-    /// these bounds; they do not grow the layer beyond its original dimensions.
     func destinationImageRect(_ destinationImageRect: UnsafeMutablePointer<FxRect>, sourceImages: [FxImageTile], destinationImage: FxImageTile, pluginState: Data?, at renderTime: CMTime) throws {
         guard let source = sourceImages.first else { throw pixelSortError("Missing source image.") }
         destinationImageRect.pointee = source.imagePixelBounds
     }
 
-    /// Requests complete rows or columns when neighboring pixels can affect the current tile.
-    /// The cross-axis extent stays narrow so the host can still split the frame into tiles.
     func sourceTileRect(_ sourceTileRect: UnsafeMutablePointer<FxRect>, sourceImageIndex: UInt, sourceImages: [FxImageTile], destinationTileRect: FxRect, destinationImage: FxImageTile, pluginState: Data?, at renderTime: CMTime) throws {
         guard let source = sourceImages.first else { throw pixelSortError("Missing source image.") }
         let settings = try state(from: pluginState)
@@ -111,7 +80,7 @@ private struct SortState: Codable {
         var rect = destinationTileRect
         let axis = settings.vertical ? image.top - image.bottom : image.right - image.left
         if settings.length(for: axis) > 1 && settings.mix > 0 {
-            // Both merging and streak scans need pixels before the tile; local input would create seams.
+            // Global merging needs the complete axis; retain cross-axis tiling.
             if settings.vertical { rect.bottom = image.bottom; rect.top = image.top }
             else { rect.left = image.left; rect.right = image.right }
         }
@@ -120,8 +89,6 @@ private struct SortState: Codable {
         sourceTileRect.pointee = rect
     }
 
-    /// Renders one output tile using textures on the GPU selected by the host.
-    /// It computes into an RGBA-float intermediate, then draws into the host texture format.
     func renderDestinationImage(_ destinationImage: FxImageTile, sourceImages: [FxImageTile], pluginState: Data?, at renderTime: CMTime) throws {
         guard let source = sourceImages.first,
               source.deviceRegistryID == destinationImage.deviceRegistryID,
@@ -136,7 +103,6 @@ private struct SortState: Codable {
         let width = Int(bounds.right - bounds.left), height = Int(bounds.top - bounds.bottom)
         guard width > 0, height > 0 else { return }
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba32Float, width: width, height: height, mipmapped: false)
-        // The intermediate remains GPU-only; floating-point storage preserves HDR channel values.
         descriptor.storageMode = .private
         descriptor.usage = [.shaderRead, .shaderWrite]
         guard let intermediate = device.makeTexture(descriptor: descriptor),
@@ -144,7 +110,6 @@ private struct SortState: Codable {
             throw pixelSortError("Unable to allocate PixelSort rendering resources.")
         }
         let image = source.imagePixelBounds
-        /// Expresses tile bounds in one image-relative coordinate system, independent of tile origin.
         func relative(_ rect: FxRect) -> SIMD4<Int32> {
             SIMD4(rect.left - image.left, rect.bottom - image.bottom, rect.right - rect.left, rect.top - rect.bottom)
         }
@@ -157,12 +122,8 @@ private struct SortState: Codable {
         uniforms.configuration = SIMD4(settings.vertical ? 1 : 0, settings.reverse ? 1 : 0, length == axisLength ? 0 : length, source.imageOrigin == kFxImageOrigin_TOP_LEFT ? 1 : 0)
         uniforms.dispatchInfo = SIMD4(destinationImage.imageOrigin == kFxImageOrigin_TOP_LEFT ? 1 : 0, 0, settings.vertical ? dest.x : dest.y, 0)
         uniforms.controls = SIMD4(Float(settings.lower), Float(settings.upper), Float(settings.mix), 0)
-        // Bypass avoids unnecessary sorting and makes zero length/mix reproduce the original.
         if length <= 1 || settings.mix <= 0 {
             try gpu.encodeCopy(command: command, source: input, destination: intermediate, uniforms: uniforms)
-        } else if settings.mode == 1 {
-            try gpu.encodeTextStreaks(command: command, source: input, destination: intermediate,
-                                      uniforms: uniforms, axisLength: Int(axisLength), seed: settings.seed)
         } else {
             try gpu.encodeFullSort(command: command, source: input, destination: intermediate,
                                    uniforms: uniforms, axisLength: Int(axisLength))
@@ -171,7 +132,6 @@ private struct SortState: Codable {
         let pass = MTLRenderPassDescriptor()
         pass.colorAttachments[0].texture = output
         pass.colorAttachments[0].loadAction = .dontCare
-        // Explicitly retain the rendered image for the host after the pass finishes.
         pass.colorAttachments[0].storeAction = .store
         guard let render = command.makeRenderCommandEncoder(descriptor: pass) else {
             throw pixelSortError("Unable to create the output render encoder.")
@@ -191,7 +151,6 @@ private struct SortState: Codable {
         render.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4)
         render.endEncoding()
         command.commit()
-        // FxPlug must not consume the output before GPU writes finish.
         command.waitUntilCompleted()
         if command.status != .completed { throw command.error ?? pixelSortError("PixelSort GPU rendering failed.") }
     }

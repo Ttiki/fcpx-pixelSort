@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>PlugInKit</key>
@@ -48,9 +48,9 @@
 	<array>
 		<dict>
 			<key>groupName</key>
-			<string>1V2T Glitch</string>
+			<string>PixelSort Group</string>
 			<key>uuid</key>
-			<string>D271DD32-D21C-4A0C-86D7-BD01DD3F5E59</string>
+			<string>DD4CA0A6-B262-4FC2-B26D-DF72DCF2367D</string>
 		</dict>
 	</array>
 	<key>ProPlugPlugInList</key>
@@ -61,51 +61,15 @@
 			<key>displayName</key>
 			<string>PixelSort::FxPlug Name</string>
 			<key>group</key>
-			<string>D271DD32-D21C-4A0C-86D7-BD01DD3F5E59</string>
+			<string>DD4CA0A6-B262-4FC2-B26D-DF72DCF2367D</string>
 			<key>infoString</key>
-			<string>Brightness sorting and seeded text streaks on transparent images.</string>
+			<string>PixelSort::FxPlug Description</string>
 			<key>protocolNames</key>
 			<array>
 				<string>FxFilter</string>
 			</array>
 			<key>uuid</key>
 			<string>DE7475B8-5F3F-4CFA-AC61-1F55837B6AC7</string>
-			<key>version</key>
-			<string>1.1</string>
-		</dict>
-		<dict>
-			<key>className</key>
-			<string>SignalTearPlugIn</string>
-			<key>displayName</key>
-			<string>Signal Tear</string>
-			<key>group</key>
-			<string>D271DD32-D21C-4A0C-86D7-BD01DD3F5E59</string>
-			<key>infoString</key>
-			<string>Seeded horizontal signal tears with transparent edges.</string>
-			<key>protocolNames</key>
-			<array>
-				<string>FxFilter</string>
-			</array>
-			<key>uuid</key>
-			<string>F1AC5E11-CA90-4552-A9DD-2AD07FB76E17</string>
-			<key>version</key>
-			<string>1.0</string>
-		</dict>
-		<dict>
-			<key>className</key>
-			<string>RGBSplitPlugIn</string>
-			<key>displayName</key>
-			<string>RGB Split</string>
-			<key>group</key>
-			<string>D271DD32-D21C-4A0C-86D7-BD01DD3F5E59</string>
-			<key>infoString</key>
-			<string>Separate RGB channels with alpha-aware color fringes.</string>
-			<key>protocolNames</key>
-			<array>
-				<string>FxFilter</string>
-			</array>
-			<key>uuid</key>
-			<string>D8D618BD-E399-40B8-976E-9D5336A1BC2D</string>
 			<key>version</key>
 			<string>1.0</string>
 		</dict>

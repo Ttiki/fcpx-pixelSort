@@ -66,8 +66,6 @@
 				Plugin/main.swift,
 				Plugin/MetalDeviceCache.swift,
 				Plugin/PixelSortPlugIn.swift,
-				Plugin/GlitchEffects.swift,
-				Plugin/GlitchEffects.metal,
 				Plugin/TileableRemoteBrightness.metal,
 				"Wrapper Application/Info.plist",
 			);
