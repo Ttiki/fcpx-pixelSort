@@ -40,17 +40,10 @@ vertexShader(uint vertexID [[vertex_id]],
     // Get the size of the drawable so that we can convert to normalized device coordinates,
     float2 viewportSize = float2(*viewportSizePointer);
     
-    // The output position of every vertex shader is in clip space (also known as normalized device
-    //   coordinate space, or NDC). A value of (-1.0, -1.0) in clip-space represents the
-    //   lower-left corner of the viewport whereas (1.0, 1.0) represents the upper-right corner of
-    //   the viewport.
-    
     // In order to convert from positions in pixel space to positions in clip space we divide the
     //   pixel coordinates by half the size of the viewport.
     out.clipSpacePosition.xy = pixelSpacePosition / (viewportSize / 2.0);
     
-    // Set the z component of our clip space position 0 (since we're only rendering in
-    //   2-Dimensions for this sample)
     out.clipSpacePosition.z = 0.0;
     
     // Set the w component to 1.0 since we don't need a perspective divide, which is also not
