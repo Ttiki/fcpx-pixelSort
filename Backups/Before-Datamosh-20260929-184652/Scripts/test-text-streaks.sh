@@ -10,8 +10,8 @@ fi
 # Temporary binaries stay outside the repository, leaving Xcode sources unchanged.
 check_binary="$(mktemp -d)/text-streak-checks"
 xcrun swiftc -O \
-  -import-objc-header "$project_root/1V2T_Glitch/Plugin/TileableRemoteBrightnessShaderTypes.h" \
-  "$project_root/1V2T_Glitch/Plugin/MetalDeviceCache.swift" \
+  -import-objc-header "$project_root/PixelSort/Plugin/TileableRemoteBrightnessShaderTypes.h" \
+  "$project_root/PixelSort/Plugin/MetalDeviceCache.swift" \
   "$project_root/Tests/TextStreakChecks.swift" \
   -o "$check_binary"
 "$check_binary" "$@"

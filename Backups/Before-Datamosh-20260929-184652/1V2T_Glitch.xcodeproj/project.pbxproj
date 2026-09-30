@@ -64,9 +64,6 @@
 				"/Localized: Plugin/Localizable.strings",
 				Plugin/GlitchEffects.metal,
 				Plugin/GlitchEffects.swift,
-				Plugin/DatamoshPlugIn.swift,
-				Plugin/DatamoshTiming.swift,
-				Plugin/Datamosh.metal,
 				Plugin/Info.plist,
 				Plugin/main.swift,
 				Plugin/MetalDeviceCache.swift,
@@ -311,7 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = 1V2T_Glitch/Plugin/Info.plist;
+				INFOPLIST_FILE = PixelSort/Plugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -319,7 +316,7 @@
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "PixelSort $(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "1V2T_Glitch/Plugin/XPC Service-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Plugin/XPC Service-Bridging-Header.h";
 				WRAPPER_EXTENSION = pluginkit;
 			};
 			name = Debug;
@@ -330,7 +327,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = 1V2T_Glitch/Plugin/Info.plist;
+				INFOPLIST_FILE = PixelSort/Plugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -338,7 +335,7 @@
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "PixelSort $(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "1V2T_Glitch/Plugin/XPC Service-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Plugin/XPC Service-Bridging-Header.h";
 				WRAPPER_EXTENSION = pluginkit;
 			};
 			name = Release;
@@ -346,17 +343,17 @@
 		16E47591306AC87B009FD034 /* Debug configuration for PBXNativeTarget "Wrapper Application" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "1V2T_Glitch/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "PixelSort/Wrapper Application/SandboxEntitlements.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "1V2T_Glitch/Wrapper Application/Info.plist";
+				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "1V2T Glitch";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "-1V2T-Glitch";
 				PRODUCT_NAME = 1V2T_Glitch;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "1V2T_Glitch/Wrapper Application/Wrapper Application-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -365,17 +362,17 @@
 		16E47592306AC87B009FD034 /* Release configuration for PBXNativeTarget "Wrapper Application" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "1V2T_Glitch/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "PixelSort/Wrapper Application/SandboxEntitlements.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "1V2T_Glitch/Wrapper Application/Info.plist";
+				INFOPLIST_FILE = "PixelSort/Wrapper Application/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "1V2T Glitch";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "-1V2T-Glitch";
 				PRODUCT_NAME = 1V2T_Glitch;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "1V2T_Glitch/Wrapper Application/Wrapper Application-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelSort/Wrapper Application/Wrapper Application-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};

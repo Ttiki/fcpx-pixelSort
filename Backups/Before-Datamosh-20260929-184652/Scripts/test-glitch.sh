@@ -10,8 +10,8 @@ fi
 # Keep generated binaries outside the source tree so tests do not dirty the Xcode project.
 check_binary="$(mktemp -d)/glitch-gpu-checks"
 xcrun swiftc -O \
-  -import-objc-header "$project_root/1V2T_Glitch/Plugin/TileableRemoteBrightnessShaderTypes.h" \
-  "$project_root/1V2T_Glitch/Plugin/MetalDeviceCache.swift" \
+  -import-objc-header "$project_root/PixelSort/Plugin/TileableRemoteBrightnessShaderTypes.h" \
+  "$project_root/PixelSort/Plugin/MetalDeviceCache.swift" \
   "$project_root/Tests/GlitchGPUChecks.swift" \
   -o "$check_binary"
 "$check_binary" "$@"

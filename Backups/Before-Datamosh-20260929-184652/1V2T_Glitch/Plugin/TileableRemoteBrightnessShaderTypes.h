@@ -54,17 +54,4 @@ typedef struct GlitchUniforms {
     vector_float4 offset; // RGB displacement x, y in render pixels
 } GlitchUniforms;
 
-/// Three input frames and a tile-local field of image-anchored motion blocks.
-typedef struct DatamoshUniforms {
-    vector_int4 currentRect;
-    vector_int4 previousRect;
-    vector_int4 historyRect;
-    vector_int4 destinationRect;
-    vector_int4 imageInfo; // full width, height, block size, search step
-    vector_int4 origins; // current, previous, history, output top-origin flags
-    vector_int4 grid; // first block x/y, grid width/height
-    vector_float4 controls; // selected block proportion, motion strength, mix, unused
-    vector_uint4 random; // seed, unused fields
-} DatamoshUniforms;
-
 #endif /* TileableRemoteBrightnessShaderTypes_h */

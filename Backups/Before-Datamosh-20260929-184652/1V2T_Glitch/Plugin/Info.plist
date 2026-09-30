@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3</string>
+	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>3</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>PlugInKit</key>
@@ -106,24 +106,6 @@
 			</array>
 			<key>uuid</key>
 			<string>D8D618BD-E399-40B8-976E-9D5336A1BC2D</string>
-			<key>version</key>
-			<string>1.0</string>
-		</dict>
-		<dict>
-			<key>className</key>
-			<string>DatamoshPlugIn</string>
-			<key>displayName</key>
-			<string>Datamosh</string>
-			<key>group</key>
-			<string>D271DD32-D21C-4A0C-86D7-BD01DD3F5E59</string>
-			<key>infoString</key>
-			<string>Delayed image blocks warped by estimated motion; a datamosh-style temporal effect.</string>
-			<key>protocolNames</key>
-			<array>
-				<string>FxFilter</string>
-			</array>
-			<key>uuid</key>
-			<string>ED068D16-7299-419A-B05F-9E37AA60ED94</string>
 			<key>version</key>
 			<string>1.0</string>
 		</dict>

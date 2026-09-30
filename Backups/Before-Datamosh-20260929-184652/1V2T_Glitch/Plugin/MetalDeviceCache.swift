@@ -25,8 +25,6 @@ final class PixelSortGPU {
     let copyImage: MTLComputePipelineState
     let glitchEffect: MTLComputePipelineState
     let streakEffect: MTLComputePipelineState
-    let moshMotion: MTLComputePipelineState
-    let moshComposite: MTLComputePipelineState
 
     /// Loads the bundled shaders and compiles their compute/render pipelines once.
     /// Tests may inject the built Metal library to exercise exactly the production shader code.
@@ -46,8 +44,6 @@ final class PixelSortGPU {
             }
             return try device.makeComputePipelineState(function: function)
         }
-        moshMotion = try pipeline("datamoshMotion")
-        moshComposite = try pipeline("datamoshComposite")
         streakEffect = try pipeline("textStreaks")
         glitchEffect = try pipeline("glitchEffect")
         copyImage = try pipeline("pixelSortCopy")
@@ -65,33 +61,6 @@ final class PixelSortGPU {
         descriptor.fragmentFunction = fragment
         descriptor.colorAttachments[0].pixelFormat = format
         render = try device.makeRenderPipelineState(descriptor: descriptor)
-    }
-
-    /// Estimates backward block motion, then warps delayed pixels. Per-render resources keep
-    /// seeking and parallel frame renders independent of the order in which the host calls us.
-    func encodeDatamosh(command: MTLCommandBuffer, current: MTLTexture, previous: MTLTexture,
-                        history: MTLTexture, destination: MTLTexture, uniforms: DatamoshUniforms) throws {
-        var u = uniforms
-        guard let vectors = device.makeBuffer(length: Int(u.grid.z * u.grid.w) * MemoryLayout<SIMD2<Int32>>.stride, options: .storageModePrivate),
-              let motion = command.makeComputeCommandEncoder() else {
-            throw pixelSortError("Unable to allocate datamosh motion resources.")
-        }
-        motion.label = "Datamosh block motion"
-        motion.setComputePipelineState(moshMotion)
-        motion.setTexture(current, index: 0); motion.setTexture(previous, index: 1)
-        motion.setBuffer(vectors, offset: 0, index: 0)
-        motion.setBytes(&u, length: MemoryLayout<DatamoshUniforms>.stride, index: 1)
-        motion.dispatchThreads(MTLSize(width: Int(u.grid.z), height: Int(u.grid.w), depth: 1), threadsPerThreadgroup: MTLSize(width: 8, height: 8, depth: 1))
-        motion.endEncoding()
-        // A new encoder establishes the dependency before composite reads the vectors.
-        guard let composite = command.makeComputeCommandEncoder() else { throw pixelSortError("Unable to create datamosh composite encoder.") }
-        composite.label = "Datamosh delayed blocks"
-        composite.setComputePipelineState(moshComposite)
-        composite.setTexture(current, index: 0); composite.setTexture(history, index: 1); composite.setTexture(destination, index: 2)
-        composite.setBuffer(vectors, offset: 0, index: 0)
-        composite.setBytes(&u, length: MemoryLayout<DatamoshUniforms>.stride, index: 1)
-        composite.dispatchThreads(MTLSize(width: destination.width, height: destination.height, depth: 1), threadsPerThreadgroup: MTLSize(width: min(256, moshComposite.maxTotalThreadsPerThreadgroup), height: 1, depth: 1))
-        composite.endEncoding()
     }
 
     /// Extends foreground pixels along each line with a seeded length, using one scan per line.
